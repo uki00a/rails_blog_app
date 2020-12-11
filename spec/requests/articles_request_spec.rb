@@ -21,11 +21,8 @@ RSpec.describe "Articles", type: :request do
       expect(response).to have_http_status(:success)
     end
 
-    it "returns a json response" do
+    it "returns an article" do
       expect(response.content_type).to include("application/json")
-    end
-
-    it "returns a article" do
       expect(response.parsed_body["id"]).to eq(article.id)
       expect(response.parsed_body["title"]).to eq(article.title)
       expect(response.parsed_body["body"]).to eq(article.body)
