@@ -1,15 +1,16 @@
 import { createAPIClient } from "~/infra/api";
-import type { APIClient } from "~/infra/api"
 import type { Plugin } from "@nuxt/types"
 
 const plugin: Plugin = (_ctx, inject) => {
-  inject("api", createAPIClient({})) // FIXME
-}
+  const {
+    API_HOST,
+    API_PORT,
+  } = process.env
 
-declare module "@nuxt/types" {
-  interface Context {
-    $api: APIClient
-  }
+  inject("api", createAPIClient({
+    host: API_HOST ?? "localhost",
+    port: API_PORT == null ? 3000 : Number(API_PORT),
+  }))
 }
 
 export default plugin
