@@ -1,4 +1,7 @@
 import colors from 'vuetify/es5/util/colors'
+import dotenv from 'dotenv'
+
+const env = dotenv.config()
 
 export default {
   srcDir: "client",
@@ -60,4 +63,6 @@ export default {
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {},
+
+  env: env.parsed,
 }
