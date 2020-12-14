@@ -2,7 +2,7 @@ class ArticlesController < ApplicationController
   before_action :authenticate_user, only: [:create]
 
   def index
-    render json: Article.includes(:user).all.map(&:serialize_article)
+    render json: Article.includes(:user).all.map { |x| serialize_article(x) }
   end
 
   def show

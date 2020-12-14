@@ -1,8 +1,6 @@
 <template>
-  <v-row justify="center" align="center">
-    <v-col cols="12" sm="8" md="6">
-      <div class="text-center">
-      </div>
+  <v-row justify="center" align="center" dense>
+    <v-col cols="12">
       <article-card
         v-for="article in articles"
         :key="article.id"
