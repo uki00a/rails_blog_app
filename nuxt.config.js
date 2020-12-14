@@ -1,4 +1,7 @@
 import colors from 'vuetify/es5/util/colors'
+import dotenv from 'dotenv'
+
+const env = dotenv.config()
 
 export default {
   srcDir: "client",
@@ -32,6 +35,8 @@ export default {
     '@nuxt/typescript-build',
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
+    // https://github.com/nuxt-community/dotenv-module
+    '@nuxtjs/dotenv',
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
@@ -58,4 +63,6 @@ export default {
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {},
+
+  env: env.parsed,
 }
