@@ -8,5 +8,6 @@ export interface Article {
 
 export interface User {
   id: number
+  email: string
   name: string
 }

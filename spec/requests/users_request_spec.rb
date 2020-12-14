@@ -1,10 +1,36 @@
 require 'rails_helper'
 
 RSpec.describe "Users", type: :request do
+  describe "GET /me" do
+    context "when unauthenticated" do
+      before { get "/me" }
+
+      it "returns a 401" do
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+
+    context "when authenticated" do
+      let(:user) { create(:user, name: "foo", email: "bar@example.com") }
+      before { get "/me", headers: authenticated_headers(user) }
+
+      it "returns a 200" do
+        expect(response).to have_http_status(:success)
+      end
+
+      it "returns a current user" do
+        expect(response.content_type).to include("application/json")
+        expect(response.parsed_body["id"]).to eq(user.id)
+        expect(response.parsed_body["name"]).to eq(user.name)
+        expect(response.parsed_body["email"]).to eq(user.email)
+      end
+    end
+  end
+
   describe "GET /users" do
     before { get "/users" }
 
-    it "returns 200" do
+    it "returns a 200" do
       expect(response).to have_http_status(:success)
     end
 

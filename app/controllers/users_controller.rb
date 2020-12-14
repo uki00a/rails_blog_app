@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user, only: [:me]
+
   def index
     # TODO use active_model_serializers
     users = User.all.map(&:serialize)
@@ -19,6 +21,10 @@ class UsersController < ApplicationController
   def articles
     articles = User.find(params[:id]).articles.map(&:serialize)
     render json: articles
+  end
+
+  def me
+    render json: current_user.serialize
   end
 
   private
