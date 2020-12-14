@@ -5,7 +5,7 @@ const plugin: Plugin = (_ctx, inject) => {
   const {
     API_HOST,
     API_PORT,
-  } = process.env
+  } = _ctx.env as NodeJS.ProcessEnv
 
   inject("api", createAPIClient({
     host: API_HOST ?? "localhost",
