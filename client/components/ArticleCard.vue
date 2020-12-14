@@ -1,6 +1,8 @@
 <template>
   <v-card>
-    <v-card-title class="headline">{{ article.title }}</v-card-title>
+    <v-card-title class="headline">
+      <nuxt-link :to="articleLink">{{ article.title }}</nuxt-link>
+    </v-card-title>
     <v-card-subtitle>Posted by @{{ article.user.name }} at {{ article.createdAt }}</v-card-subtitle>
   </v-card>
 </template>
@@ -13,5 +15,9 @@ import type {  Article, User } from "~/types"
 export default class ArticleCard extends Vue {
   @Prop({ required: true })  
   article!: Article
+
+  get articleLink(): string {
+    return `/articles/${this.article.id}`
+  }
 }
 </script>
