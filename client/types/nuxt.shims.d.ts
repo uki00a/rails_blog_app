@@ -6,3 +6,9 @@ declare module "@nuxt/types" {
     $api: APIClient
   }
 }
+
+declare module 'vue/types/vue' {
+  interface Vue {
+    $api: APIClient
+  }
+}

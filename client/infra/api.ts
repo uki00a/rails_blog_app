@@ -4,6 +4,8 @@ export interface APIClient {
   me(): Promise<User>
   article(id: number): Promise<Article>
   articles(): Promise<Article[]>
+  articlesWrittenByUser(userID: number): Promise<Article[]>
+  user(id: number): Promise<User>
   signIn(email: string, password: string): Promise<void>;
 }
 
@@ -75,6 +77,14 @@ export function createAPIClient(_options: APIClientOptions) {
     return get<Article[]>("/articles")
   }
 
+  function articlesWrittenByUser(userID: number): Promise<Article[]> {
+    return get<Article[]>(`/users/${userID}/articles`)
+  }
+
+  function user(id: number): Promise<User> {
+    return get<User>(`/users/${id}`)
+  }
+
   async function signIn(email: string, password: string): Promise<void> {
     const { jwt } = await post<{ jwt: string }>("/user_token", { auth: { email, password } }) 
     token = jwt
@@ -85,6 +95,8 @@ export function createAPIClient(_options: APIClientOptions) {
     me,
     article,
     articles,
+    articlesWrittenByUser,
+    user,
     signIn,
   }
 }

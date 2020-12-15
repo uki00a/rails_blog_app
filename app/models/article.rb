@@ -7,6 +7,7 @@ class Article < ApplicationRecord
       id: id,
       title: title,
       body: body,
+      user: user.serialize,
     }
   end
 end
