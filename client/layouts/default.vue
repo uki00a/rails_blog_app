@@ -13,7 +13,8 @@
       </v-btn>
       <v-toolbar-title v-text="title" />
       <v-spacer />
-      <nuxt-link to="/login">Login</nuxt-link>
+      <a v-if="isSignedIn" @click.prevent="logout" href="#">Logout</a>
+      <nuxt-link v-else to="/login">Login</nuxt-link>
     </v-app-bar>
     <v-main>
       <v-container>
@@ -26,28 +27,36 @@
   </v-app>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      clipped: false,
-      drawer: false,
-      fixed: false,
-      items: [
-        {
-          icon: 'mdi-apps',
-          title: 'Welcome',
-          to: '/',
-        },
-        {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire',
-        },
-      ],
-      miniVariant: false,
-      title: 'Vuetify.js',
-    }
-  },
+<script lang="ts">
+import { Component, Getter, Vue } from "nuxt-property-decorator"
+import { IS_SIGNED_IN, LOGOUT } from "~/store"
+
+@Component
+export default class DefaultLayout extends Vue {
+  clipped = false
+  drawer = false
+  fixed = false
+  items = [
+    {
+      icon: 'mdi-apps',
+      title: 'Welcome',
+      to: '/',
+    },
+    {
+      icon: 'mdi-chart-bubble',
+      title: 'Inspire',
+      to: '/inspire',
+    },
+  ]
+  miniVariant = false
+  title = 'Vuetify.js'
+
+  @Getter(IS_SIGNED_IN)
+  isSignedIn!: boolean
+
+  logout(): void {
+    this.$store.commit(LOGOUT)
+    this.$router.push("/")
+  }
 }
 </script>
