@@ -3,7 +3,9 @@
     <v-card-title class="headline">
       <nuxt-link :to="articleLink">{{ article.title }}</nuxt-link>
     </v-card-title>
-    <v-card-subtitle>Posted by @{{ article.user.name }} at {{ article.createdAt }}</v-card-subtitle>
+    <v-card-subtitle>
+      Posted by <nuxt-link :to="userLink">@{{ article.user.name }}</nuxt-link> at {{ article.createdAt }}
+    </v-card-subtitle>
   </v-card>
 </template>
 
@@ -18,6 +20,10 @@ export default class ArticleCard extends Vue {
 
   get articleLink(): string {
     return `/articles/${this.article.id}`
+  }
+
+  get userLink(): string {
+    return `/users/${this.article.user.id}`
   }
 }
 </script>
