@@ -13,6 +13,8 @@
       </v-btn>
       <v-toolbar-title v-text="title" />
       <v-spacer />
+      <nuxt-link v-if="isSignedIn" to="/articles/new">New Article</nuxt-link>
+      <v-spacer />
       <a v-if="isSignedIn" @click.prevent="logout" href="#">Logout</a>
       <nuxt-link v-else to="/login">Login</nuxt-link>
     </v-app-bar>
@@ -56,6 +58,7 @@ export default class DefaultLayout extends Vue {
 
   logout(): void {
     this.$store.commit(LOGOUT)
+    this.$api.signOut()
     this.$router.push("/")
   }
 }
