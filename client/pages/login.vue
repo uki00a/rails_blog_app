@@ -22,6 +22,7 @@
 
 <script lang="ts">
 import { Component, Vue, Prop } from "nuxt-property-decorator"
+import { LOGIN_AS } from "~/store"
 
 @Component
 export default class Login extends Vue {
@@ -29,12 +30,11 @@ export default class Login extends Vue {
   email = ""
   password = ""
 
-  login() {
+  login(): void {
     this.$api.signIn(this.email, this.password)
       .then(() => this.$api.me())
       .then(me => {
-        // TODO Save `me` to vuex store
-        console.log(me)
+        this.$store.commit(LOGIN_AS, me)
         this.$router.push("/")
       })
       .catch(err => {
